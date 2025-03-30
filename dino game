@@ -1,0 +1,94 @@
+#include <M5Unified.h>
+
+// Variables del juego
+int dinoY = 80;         // Posición vertical del dinosaurio
+int dinoX = 20;         // Posición horizontal fija del dinosaurio
+int cactusX = 240;      // Posición inicial del cactus
+int cactusY = 80;       // Altura del cactus
+int velocity = -2;      // Velocidad del cactus (mueve hacia la izquierda)
+bool jumping = false;   // Estado del salto
+int jumpHeight = 40;    // Altura máxima del salto
+int gravity = 2;        // Gravedad para bajar al dinosaurio
+int score = 0;          // Puntuación
+
+void setup() {
+  M5.begin();           // Inicializa el M5StickC Plus2
+  M5.Lcd.setRotation(1); // Rota la pantalla a horizontal
+  M5.Lcd.fillScreen(BLACK); // Limpia la pantalla
+}
+
+void loop() {
+  M5.update(); // Actualiza el estado de los botones
+
+  // Control del salto con el botón A
+  if (M5.BtnA.wasPressed() && !jumping) {
+    jumping = true;
+  }
+
+  // Lógica del salto
+  if (jumping) {
+    dinoY -= 5; // Sube
+    if (dinoY <= 80 - jumpHeight) {
+      jumping = false; // Comienza a bajar
+    }
+  } else if (dinoY < 80) {
+    dinoY += gravity; // Baja por gravedad
+  }
+  if (dinoY > 80) dinoY = 80; // Limita al suelo
+
+  // Mover el cactus
+  cactusX += velocity;
+  if (cactusX < 0) {
+    cactusX = 240; // Reinicia el cactus al final
+    score += 1;    // Aumenta la puntuación
+  }
+
+  // Detectar colisión
+  if (abs(cactusX - dinoX) < 10 && abs(dinoY - cactusY) < 10) {
+    gameOver();
+    return;
+  }
+
+  // Dibujar en la pantalla
+  M5.Lcd.fillScreen(BLACK); // Limpia la pantalla
+  drawDino();
+  drawCactus();
+  drawScore();
+
+  delay(20); // Controla la velocidad del juego
+}
+
+void drawDino() {
+  M5.Lcd.fillRect(dinoX, dinoY, 10, 10, GREEN); // Dinosaurio como rectángulo
+}
+
+void drawCactus() {
+  M5.Lcd.fillRect(cactusX, cactusY, 10, 10, RED); // Cactus como rectángulo
+}
+
+void drawScore() {
+  M5.Lcd.setCursor(200, 10);
+  M5.Lcd.setTextColor(WHITE);
+  M5.Lcd.printf("Score: %d", score);
+}
+
+void gameOver() {
+  M5.Lcd.fillScreen(BLACK);
+  M5.Lcd.setCursor(50, 50);
+  M5.Lcd.setTextColor(RED);
+  M5.Lcd.setTextSize(2);
+  M5.Lcd.println("Game Over");
+  M5.Lcd.setCursor(50, 80);
+  M5.Lcd.setTextSize(1);
+  M5.Lcd.printf("Score: %d", score);
+  while (true) {
+    M5.update();
+    if (M5.BtnA.wasPressed()) { // Reinicia con botón A
+      dinoY = 80;
+      cactusX = 240;
+      score = 0;
+      return;
+    }
+    delay(100);
+  }
+}
