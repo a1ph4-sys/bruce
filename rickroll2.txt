@@ -1,0 +1,16 @@
+REM Author: SeenKid (seenkid on discord)
+REM Thanks : yellowstar520 for reporting me the error with the previous script
+REM Description: Open a website 
+REM Version 2.0
+DELAY 1000 
+GUI SPACE 
+DELAY 1000 
+STRING safari 
+DELAY 1000 
+ENTER 
+DELAY 1000 
+GUI L 
+REM Insert your website below 
+STRING https://www.google.com/search?q=rickroll&rlz=1C1GCEA_enES1133ES1133&oq=rickroll&gs_lcrp=EgZjaHJvbWUqDggAEEUYJxg7GIAEGIoFMg4IABBFGCcYOxiABBiKBTIMCAEQABhDGIAEGIoFMgwIAhAAGEMYgAQYigUyDAgDEAAYQxiABBiKBTIHCAQQABiABDIMCAUQABhDGIAEGIoFMgcIBhAAGIAEMgwIBxAAGEMYgAQYigUyBwgIEAAYgAQyBwgJEAAYgATSAQgyNjIyajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:36b13461,vid:xvFZjo5PgG0,st:0
+DELAY 1000 
+ENTER
