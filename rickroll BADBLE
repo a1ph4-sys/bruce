@@ -1,11 +1,8 @@
+safari.open(url);
 const url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const dispositivo = "iPhone";
-
-// Activar el script
 if (dispositivo === "iPhone") {
-  // Abrir la página en Safari
   safari.open(url);
-  // Repetir el proceso hasta que se cancele
   while (true) {
     safari.open(url);
   }

@@ -1,0 +1,6 @@
+REM Script de BadBLE para Android - Abrir navegador y entrar a example.com
+DELAY 1000
+GUI
+DELAY 500
+STRING https://example.com
+ENTER
